@@ -1,4 +1,6 @@
-package com.jaeger.reading;
+package com.jaeger.reading.model;
+
+import com.jaeger.reading.model.Book;
 
 import java.util.Date;
 

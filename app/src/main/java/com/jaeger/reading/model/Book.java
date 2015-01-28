@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.model;
 
 import org.litepal.crud.DataSupport;
 

@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ProgressBarDeterminate;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.jaeger.reading.model.Book;
+import com.jaeger.reading.R;
 
 import org.litepal.crud.DataSupport;
 

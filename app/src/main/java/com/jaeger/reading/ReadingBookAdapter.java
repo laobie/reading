@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ProgressBarDeterminate;
+import com.jaeger.reading.model.Book;
 
 import java.io.File;
 import java.util.ArrayList;

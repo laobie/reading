@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.activity;
 
 import android.app.Dialog;
 import android.app.AlertDialog;
@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gc.materialdesign.views.ButtonFlat;
+import com.jaeger.reading.model.Book;
+import com.jaeger.reading.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.litepal.crud.DataSupport;
@@ -214,8 +216,8 @@ public class AddNewBookActivity extends ActionBarActivity implements View.OnClic
             }
             coverPath = new File(readingPath + "/.cover");
             if (!coverPath.exists()){
-                coverPath.mkdir();
-                Toast.makeText(this, "Create CoversFolder Succeed", Toast.LENGTH_SHORT).show();
+                if (coverPath.mkdir())
+                    Toast.makeText(this, "Create CoversFolder Succeed", Toast.LENGTH_SHORT).show();
             }
             tempCoverFile = new File(coverPath, "tempCover.jpg");
         }

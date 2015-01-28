@@ -5,7 +5,7 @@
     <version value="2"> </version>
 
     <list>
-        <mapping class="com.jaeger.reading.Book"></mapping>
-        <mapping class="com.jaeger.reading.Excerpt"></mapping>
+        <mapping class="com.jaeger.reading.model.Book"></mapping>
+        <mapping class="com.jaeger.reading.model.Excerpt"></mapping>
     </list>
 </litepal>

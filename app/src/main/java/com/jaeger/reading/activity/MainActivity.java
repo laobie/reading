@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,11 @@ import android.widget.ListView;
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.dexafree.materialList.view.MaterialListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.jaeger.reading.model.Book;
+import com.jaeger.reading.model.DrawerItem;
+import com.jaeger.reading.DrawerItemAdapter;
+import com.jaeger.reading.R;
+import com.jaeger.reading.ReadingBookAdapter;
 
 import org.litepal.crud.DataSupport;
 

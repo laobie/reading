@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.model;
 
 /**
  * Created by Jaeger on 1/23/023.

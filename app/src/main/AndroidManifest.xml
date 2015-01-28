@@ -12,7 +12,7 @@
         android:name="org.litepal.LitePalApplication"  >
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="在读"
             android:logo="@drawable/ic_tab_content_normal"
             android:theme="@style/AppTheme">
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AddNewBookActivity"
+        <activity android:name=".activity.AddNewBookActivity"
             android:theme="@style/AppBaseTheme"
             android:label="添加新书" />
 
-        <activity android:name=".BookDetailActivity"
+        <activity android:name=".activity.BookDetailActivity"
             android:theme="@style/AppBaseTheme"
             android:label="书籍信息" />
 
