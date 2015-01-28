@@ -12,28 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/toolbar">
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/mainBookListLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
 
-            <com.dexafree.materialList.view.MaterialListView
+                <com.dexafree.materialList.view.MaterialListView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/material_listView"
+                    android:padding="@dimen/small_padding" >
+                </com.dexafree.materialList.view.MaterialListView>
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    xmlns:fab="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/fab_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="8dp"
+                    fab:fab_icon="@drawable/ic_action_new"/>
+            </RelativeLayout>
+            <WebView
+                android:visibility="gone"
+                android:id="@+id/browseBooksView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/material_listView"
-                android:padding="@dimen/small_padding" >
-            </com.dexafree.materialList.view.MaterialListView>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                xmlns:fab="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/fab_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"
-                fab:fab_icon="@drawable/ic_action_new"/>
-        </RelativeLayout>
+                android:layout_height="fill_parent">
+            </WebView>
+        </LinearLayout>
         <ListView
             android:paddingTop="180dp"
             android:id="@+id/left_drawer"

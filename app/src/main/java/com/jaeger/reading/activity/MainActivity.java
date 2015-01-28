@@ -8,12 +8,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 import com.dexafree.materialList.view.MaterialListView;
@@ -37,6 +42,9 @@ public class MainActivity extends ActionBarActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar toolbar;
     private FloatingActionButton fabAdd;
+
+    private RelativeLayout mainBookListLayout;
+    private WebView browseBooksView;
 
     private String titleStr;
     private ArrayList<Book> BookList;
@@ -121,16 +129,31 @@ public class MainActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0:
+                        mainBookListLayout.setVisibility(View.VISIBLE);
+                        browseBooksView.setVisibility(View.GONE);
                         mDrawerLayout.closeDrawer(mListViewDrawer);
                         titleStr = "在读书单";
                         BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
                         UpadateBook();
                         break;
                     case 1:
+                        mainBookListLayout.setVisibility(View.VISIBLE);
+                        browseBooksView.setVisibility(View.GONE);
                         mDrawerLayout.closeDrawer(mListViewDrawer);
                         titleStr = "已完成书单";
                         BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "1").find(Book.class);
                         UpadateBook();
+                        break;
+                    case 2:
+                        mDrawerLayout.closeDrawer(mListViewDrawer);
+                        titleStr = "浏览推荐";
+                        mainBookListLayout.setVisibility(View.GONE);
+                        browseBooksView.setVisibility(View.VISIBLE);
+                        browseBooksView.getSettings().setJavaScriptEnabled(true);
+//                        browseBooksView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+                        browseBooksView.loadUrl("http://book.douban.com/tag/%E9%A6%99%E6%B8%AF%E4%B8" +
+                                "%AD%E6%96%87%E5%A4%A7%E5%AD%A6%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95");
+                        browseBooksView.setWebViewClient(new initWebView());
                         break;
                     default:
                         break;
@@ -140,12 +163,24 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && browseBooksView.canGoBack()){
+            browseBooksView.goBack();
+            return true;
+        }
+        return false;
+    }
+
     private void initView(){
         materialListView = (MaterialListView) findViewById(R.id.material_listView);
         fabAdd = (FloatingActionButton) findViewById(R.id.fab_button);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mListViewDrawer = (ListView) findViewById(R.id.left_drawer);
+
+        mainBookListLayout = (RelativeLayout) findViewById(R.id.mainBookListLayout);
+        browseBooksView = (WebView) findViewById(R.id.browseBooksView);
 
         initDrawerItem();
 
@@ -220,5 +255,14 @@ public class MainActivity extends ActionBarActivity {
         }
         UpadateBook();
         super.onRestart();
+    }
+
+    private class initWebView extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+            view.loadUrl(url);
+            return true;
+        }
     }
 }
