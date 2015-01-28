@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#33B5E5</item>
+        <item name="colorPrimaryDark">#0099CC</item>
+        <item name="windowActionBar">false</item>
+
+    </style>
+
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#33B5E5</item>
+        <item name="colorPrimaryDark">#0099CC</item>
+    </style>
+
+
+    <style name="AddNewBookEdit">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/small_padding</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="PurpleTheme">
+        <item name="colorPrimary">@color/purple</item>
+        <item name="colorPrimaryDark">@color/dark_purple</item>
+    </style>
+
+
+
+
+
+</resources>

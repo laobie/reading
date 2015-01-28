@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:id="@+id/drawerItem_icon_view"
+        android:layout_width="24dp"
+        android:layout_height="42dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_readbook_icon"/>
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="24dp"
+        android:id="@+id/drawerItem_name_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        tools:text="已完成书单" />
+</LinearLayout>

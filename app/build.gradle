@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.jaeger.reading"
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
+    compile 'com.getbase:floatingactionbutton:1.6.0'
+    compile 'com.rengwuxian.materialedittext:library:1.8.2'
+    //    compile 'it.neokree:MaterialNavigationDrawer:1.2.9'
+    compile 'com.balysv.materialmenu:material-menu:1.5.0'
+    compile 'com.balysv.materialmenu:material-menu-abc:1.5.0'
+    //  compile 'com.balysv.materialmenu:material-menu-toolbar:1.5.0'
+    //compile 'com.balysv.materialmenu:material-menu-abs:1.5.0'
+    compile('com.github.dexafree:materiallist:2.0.0') {
+        exclude group: 'com.nhaarman.listviewanimations'
+    }
+    compile files('libs/litepal-1.1.1.jar')
+    compile files('libs/litepal-1.1.1-src.jar')
+}
