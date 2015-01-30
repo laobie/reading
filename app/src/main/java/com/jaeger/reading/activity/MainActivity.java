@@ -163,14 +163,14 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && browseBooksView.canGoBack()){
-            browseBooksView.goBack();
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+////        if (keyCode == KeyEvent.KEYCODE_BACK && browseBooksView.canGoBack()){
+////            //browseBooksView.goBack();
+////            return true;
+////        }
+//        return false;
+//    }
 
     private void initView(){
         materialListView = (MaterialListView) findViewById(R.id.material_listView);
