@@ -10,7 +10,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="更新阅读进度"/>
+        android:text="@string/update_reading_progress"/>
 
     <EditText
         android:id="@+id/bookmarkEditView"
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#1E88E5"
-        android:text="确定" />
+        android:text="@string/confirm" />
 
 
 </LinearLayout>

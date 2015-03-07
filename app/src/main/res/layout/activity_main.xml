@@ -3,32 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        layout="@layout/toolbar"
-        android:id="@+id/toolbar" />
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:id="@+id/mainBookListLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent">
 
                 <com.dexafree.materialList.view.MaterialListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
                     android:id="@+id/material_listView"
-                    android:padding="@dimen/small_padding" >
-                </com.dexafree.materialList.view.MaterialListView>
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="@dimen/small_padding"
+                    android:paddingRight="@dimen/small_padding"
+                    android:paddingTop="@dimen/small_padding"/>
 
-                <com.getbase.floatingactionbutton.FloatingActionButton
-                    xmlns:fab="http://schemas.android.com/apk/res-auto"
+                <com.getbase.floatingactionbutton.FloatingActionButton xmlns:fab="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/fab_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -36,25 +35,47 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginBottom="8dp"
                     android:layout_marginRight="8dp"
-                    fab:fab_icon="@drawable/ic_action_new"/>
+                    fab:fab_icon="@drawable/ic_fab_add" />
             </RelativeLayout>
+
             <WebView
-                android:visibility="gone"
                 android:id="@+id/browseBooksView"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            </WebView>
+                android:layout_height="fill_parent"
+                android:visibility="gone" />
         </LinearLayout>
-        <ListView
-            android:paddingTop="180dp"
-            android:id="@+id/left_drawer"
+
+        <RelativeLayout
+            android:id="@+id/drawer_view"
             android:layout_width="220dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/darker_gray"
-            android:dividerHeight="0dp"
-            android:background="@color/white"/>
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <ListView
+                android:id="@+id/left_drawer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0dp"
+                android:paddingTop="180dp" />
+            <ListView
+                android:id="@+id/settingAndExitView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0dp"
+                android:layout_alignParentBottom="true"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_grey"
+                android:layout_above="@id/settingAndExitView"/>
+
+
+        </RelativeLayout>
 
     </android.support.v4.widget.DrawerLayout>
 

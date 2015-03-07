@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,14 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gc.materialdesign.views.ProgressBarDeterminate;
+import com.jaeger.reading.R;
 import com.jaeger.reading.model.Book;
 
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * Created by Jaeger on 1/18/018.
- */
 public class ReadingBookAdapter extends ArrayAdapter<Book> {
     private int resourceId;
     public ReadingBookAdapter(Context context, int resourceId, ArrayList<Book> objects) {
@@ -57,7 +55,7 @@ public class ReadingBookAdapter extends ArrayAdapter<Book> {
         return view;
     }
 
-    class ViewHolder{
+    static class ViewHolder{
         ImageView bookCoverView;
         TextView bookNameView;
         TextView bookAuthorView;

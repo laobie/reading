@@ -1,16 +1,13 @@
 package com.jaeger.reading.model;
 
 import org.litepal.crud.DataSupport;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by Jaeger on 1/18/018.
- */
-public class Book extends DataSupport implements Serializable{
+
+public class Book extends DataSupport implements Serializable {
     private int id;
     private String name;
     private String author;
@@ -22,7 +19,6 @@ public class Book extends DataSupport implements Serializable{
     private boolean isFinish;
 
     private List<Excerpt> excerptList = new ArrayList<>();
-
 
     public Book() {
 
@@ -117,7 +113,5 @@ public class Book extends DataSupport implements Serializable{
     public String getCoverFile() {
         return coverFile;
     }
-
-
 
 }

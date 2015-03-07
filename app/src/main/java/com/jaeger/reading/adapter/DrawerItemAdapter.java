@@ -1,4 +1,4 @@
-package com.jaeger.reading;
+package com.jaeger.reading.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,13 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jaeger.reading.R;
 import com.jaeger.reading.model.DrawerItem;
 
 import java.util.ArrayList;
 
-/**
- * Created by Jaeger on 1/23/023.
- */
 public class DrawerItemAdapter extends ArrayAdapter {
     private int resourceId;
     public DrawerItemAdapter(Context context, int resourceId, ArrayList<DrawerItem> objects) {

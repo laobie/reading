@@ -13,21 +13,81 @@
         <item name="colorPrimaryDark">#0099CC</item>
     </style>
 
-
-    <style name="AddNewBookEdit">
-        <item name="android:gravity">center_horizontal</item>
-        <item name="android:paddingTop">@dimen/small_padding</item>
-        <item name="android:layout_width">200dp</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
-
-    <style name="PurpleTheme">
+    <style name="PurpleTheme" >
         <item name="colorPrimary">@color/purple</item>
         <item name="colorPrimaryDark">@color/dark_purple</item>
     </style>
 
+    <!-- dialog style  dialog width set wrap_content -->
+    <style name="dialogTheme" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 
+    <!-- AddNewBookActivity Layout Styles -->
+    <style name="AddNewBookEditText">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">@dimen/small_padding</item>
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
 
+    <!-- SettingsActivity Layout Styles -->
+    <style name="SettingRelativeLayout">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="SettingTitleTextView" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">@dimen/big_padding</item>
+        <item name="android:paddingLeft">@dimen/big_padding</item>
+        <item name="android:paddingRight">@dimen/big_padding</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SettingItemTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingLeft">@dimen/big_padding</item>
+        <item name="android:paddingRight">@dimen/big_padding</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="SettingItemRightTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="android:textColor">@color/deep_green</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SettingItemRightCheckBoxOrSwitch">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:clickable">false</item>
+        <item name="android:paddingRight">@dimen/big_padding</item>
+    </style>
+
+    <style name="SettingItemsDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginLeft">@dimen/small_padding</item>
+        <item name="android:layout_marginRight">@dimen/small_padding</item>
+        <item name="android:background">@color/divider_grey</item>
+    </style>
 
 
 </resources>

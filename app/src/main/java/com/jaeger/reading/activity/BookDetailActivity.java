@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,8 +20,8 @@ import android.widget.TextView;
 import com.gc.materialdesign.views.ButtonFlat;
 import com.gc.materialdesign.views.ProgressBarDeterminate;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.jaeger.reading.model.Book;
 import com.jaeger.reading.R;
+import com.jaeger.reading.model.Book;
 
 import org.litepal.crud.DataSupport;
 
@@ -30,11 +29,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by Jaeger on 1/24/024.
- */
-
-public class BookDetailActivity extends ActionBarActivity {
+public class BookDetailActivity extends BaseActivity {
     private int bookId;
     private ImageView bookCoverView;
     private TextView bookNameView, bookAuthorView, bookPagesView,
@@ -42,16 +37,14 @@ public class BookDetailActivity extends ActionBarActivity {
     private ProgressBarDeterminate readProgressBar;
     private FloatingActionButton addBookmark;
     private LinearLayout readingInfoView, finishDateView;
-    private final static int REQUESTCODE_EDIT_BOOK = 1;
-
+    private final static int REQUEST_CODE_EDIT_BOOK = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.book_detial_layout);
+        setContentView(R.layout.activity_book_detial_layout);
         initView();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         Intent intent = getIntent();
         bookId = intent.getIntExtra("bookId", 0);
         UpdateBookInfo();
@@ -91,24 +84,24 @@ public class BookDetailActivity extends ActionBarActivity {
             case R.id.action_edit:
                 Intent intent = new Intent(BookDetailActivity.this, AddNewBookActivity.class);
                 intent.putExtra("editBookId", bookId);
-                startActivityForResult(intent, REQUESTCODE_EDIT_BOOK);
+                startActivityForResult(intent, REQUEST_CODE_EDIT_BOOK);
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     private void initView() {
-        bookCoverView       = (ImageView) findViewById(R.id.bookCoverView);
-        bookNameView        = (TextView) findViewById(R.id.bookNameView);
-        bookAuthorView      = (TextView) findViewById(R.id.bookAuthorView);
-        bookPagesView       = (TextView) findViewById(R.id.bookPagesView);
-        addDateView         = (TextView) findViewById(R.id.addDateView);
-        finDateView         = (TextView) findViewById(R.id.finDateView);
-        bookReadingPgrView  = (TextView) findViewById(R.id.bookReadProgressView);
-        readProgressBar     = (ProgressBarDeterminate) findViewById(R.id.readProgressBar);
-        addBookmark         = (FloatingActionButton) findViewById(R.id.addBookmark);
-        finishDateView      = (LinearLayout) findViewById(R.id.finishDateView);
-        readingInfoView     = (LinearLayout) findViewById(R.id.readingInfoView);
+        bookCoverView = (ImageView) findViewById(R.id.bookCoverView);
+        bookNameView = (TextView) findViewById(R.id.bookNameView);
+        bookAuthorView = (TextView) findViewById(R.id.bookAuthorView);
+        bookPagesView = (TextView) findViewById(R.id.bookPagesView);
+        addDateView = (TextView) findViewById(R.id.addDateView);
+        finDateView = (TextView) findViewById(R.id.finDateView);
+        bookReadingPgrView = (TextView) findViewById(R.id.bookReadProgressView);
+        readProgressBar = (ProgressBarDeterminate) findViewById(R.id.readProgressBar);
+        addBookmark = (FloatingActionButton) findViewById(R.id.addBookmark);
+        finishDateView = (LinearLayout) findViewById(R.id.finishDateView);
+        readingInfoView = (LinearLayout) findViewById(R.id.readingInfoView);
 
         addBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,12 +129,12 @@ public class BookDetailActivity extends ActionBarActivity {
                                 if (readPages == book.getPages()) {
                                     newBook.setFinishDate(new Date(System.currentTimeMillis()));
                                     newBook.setFinish(true);
-                                }else {
+                                } else {
                                     newBook.setToDefault("isFinish");
                                 }
                                 newBook.update(bookId);
                                 UpdateBookInfo();
-                                dialog.dismiss();
+                                dialog.cancel();
                             } else {
                                 AlertDialog alertDialog = new AlertDialog.Builder(BookDetailActivity.this)
                                         .setTitle("提示")
@@ -158,8 +151,8 @@ public class BookDetailActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case REQUESTCODE_EDIT_BOOK:
+        switch (requestCode) {
+            case REQUEST_CODE_EDIT_BOOK:
                 UpdateBookInfo();
                 break;
             default:
@@ -183,16 +176,15 @@ public class BookDetailActivity extends ActionBarActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         addDateView.setText(dateFormat.format(book.getAddDate()));
 
-        if (book.isFinish()){
+        if (book.isFinish()) {
             readingInfoView.setVisibility(View.GONE);
             finishDateView.setVisibility(View.VISIBLE);
             finDateView.setText(dateFormat.format(book.getFinishDate()));
             addBookmark.setIcon(R.drawable.ic_action_done);
-//            addBookmark.setEnabled(false);
         } else {
             readingInfoView.setVisibility(View.VISIBLE);
             finishDateView.setVisibility(View.GONE);
-            addBookmark.setIcon(R.drawable.ic_bookmark);
+            addBookmark.setIcon(R.drawable.ic_fab_bookmark);
             readProgressBar.setMax(book.getPages());
             readProgressBar.setProgress(book.getReadPages());
             bookReadingPgrView.setText(book.getReadPages() + "/" + book.getPages());

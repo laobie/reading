@@ -16,7 +16,7 @@
             android:name=".activity.MainActivity"
             android:label="在读"
             android:logo="@drawable/ic_tab_content_normal"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppBaseTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,11 +30,11 @@
         <activity android:name=".activity.BookDetailActivity"
             android:theme="@style/AppBaseTheme"
             android:label="书籍信息" />
-
-        <activity android:name=".activity.BrowseActivity"
+        <activity android:name=".activity.SearchBookActivity"
+            android:theme="@style/AppBaseTheme"/>
+        <activity android:name=".activity.SettingsActivity"
             android:theme="@style/AppBaseTheme"
-            android:label="浏览推荐" />
-
+            android:label="设置"/>
 
     </application>
 

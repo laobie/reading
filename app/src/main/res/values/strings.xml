@@ -2,10 +2,58 @@
 <resources>
 
     <string name="app_name">Reading</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
+    <string name="reading_books_list">在读书单</string>
+    <string name="read_books_list">已读书单</string>
+    <string name="recommend_books_list">推荐书单</string>
+
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="search">搜索</string>
+    <string name="about">关于</string>
+
+    <!--- update bookmark dialog strings -->
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="update_reading_progress">更新阅读进度</string>
+
+    <!--- add new reading book activity strings -->
+    <string name="add_cover">添加封面</string>
+    <string name="input_book_name">输入书名</string>
+    <string name="input_book_author">输入作者</string>
+    <string name="input_book_pages">输入页数</string>
+    <string name="label_book_name">书名</string>
+    <string name="label_book_author">作者</string>
+    <string name="label_book_pages">页数</string>
+
+    <!-- book details activity strings -->
+    <string name="add_date">添加日期</string>
+    <string name="finish_date">完成日期</string>
+
+    <!-- search book activity strings-->
+    <string name="input_keyword">输入关键字</string>
+
+
+    <!-- setting activity strings -->
+    <string name="search_online">在线搜书</string>
+    <string name="load_cover">加载封面</string>
+    <string name="load_cover_quality">图片加载质量</string>
+    <string-array name="array_load_cover_quality">
+        <item>一般</item>
+        <item>中等</item>
+        <item>清晰</item>
+    </string-array>
+    <string name="load_item_number">单次加载数目</string>
+
+    <string name="read_notification">阅读提醒</string>
+    <string name="receive_notification">接收阅读提醒通知</string>
+    <string name="notice_time">提醒时间</string>
+
+
 
 </resources>
+
+

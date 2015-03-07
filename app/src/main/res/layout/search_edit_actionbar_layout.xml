@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.rengwuxian.materialedittext.MaterialEditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edtTxt_search_keyword"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:hint="@string/input_keyword"
+    android:singleLine="true"
+    android:paddingTop="@dimen/small_padding"
+    android:layout_marginLeft="@dimen/small_padding"
+    android:layout_marginRight="@dimen/small_padding"
+    app:baseColor="@color/white"
+    app:errorColor="@color/dark_red"
+    app:primaryColor="@color/white"
+    android:textCursorDrawable="@null"/>
+

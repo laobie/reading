@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/SettingTitleTextView"
+            android:text="@string/read_notification" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
+                android:id="@+id/tv_receive_notice_mode"
+                style="@style/SettingItemTextView"
+                android:text="@string/receive_notification" />
+
+            <Switch
+                android:id="@+id/sw_receive_notice_mode"
+                style="@style/SettingItemRightCheckBoxOrSwitch"
+                android:checked="true" />
+
+        </RelativeLayout>
+
+        <View style="@style/SettingItemsDivider" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
+                android:id="@+id/tv_receive_notice_time"
+                style="@style/SettingItemTextView"
+                android:text="@string/notice_time" />
+
+            <TextView
+                android:id="@+id/tvr_receive_notice_time"
+                style="@style/SettingItemRightTextView" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/SettingTitleTextView"
+            android:text="@string/search_online" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
+                android:id="@+id/tv_load_cover_mode"
+                style="@style/SettingItemTextView"
+                android:text="@string/load_cover" />
+
+            <Switch
+                android:id="@+id/sw_load_cover_mode"
+                style="@style/SettingItemRightCheckBoxOrSwitch" />
+        </RelativeLayout>
+
+        <View style="@style/SettingItemsDivider" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
+                android:id="@+id/tv_load_cover_quality"
+                style="@style/SettingItemTextView"
+                android:text="@string/load_cover_quality" />
+
+            <TextView
+                android:id="@+id/tvr_load_cover_quality"
+                style="@style/SettingItemRightTextView"
+                tools:text="一般" />
+
+        </RelativeLayout>
+
+        <View style="@style/SettingItemsDivider" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
+                android:id="@+id/tv_load_num"
+                style="@style/SettingItemTextView"
+                android:text="@string/load_item_number" />
+
+            <TextView
+                android:id="@+id/tvr_load_num"
+                style="@style/SettingItemRightTextView"
+                android:clickable="false"
+                android:focusable="false" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
+
+

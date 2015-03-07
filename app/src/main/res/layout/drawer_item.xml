@@ -12,9 +12,9 @@
         android:layout_gravity="center_vertical"
         android:id="@+id/drawerItem_icon_view"
         android:layout_width="24dp"
-        android:layout_height="42dp"
+        android:layout_height="36dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_readbook_icon"/>
+        android:src="@drawable/ic_drawer_readbook"/>
     <TextView
         android:layout_gravity="center_vertical"
         android:paddingLeft="24dp"

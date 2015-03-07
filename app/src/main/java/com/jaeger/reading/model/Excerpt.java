@@ -1,12 +1,7 @@
 package com.jaeger.reading.model;
 
-import com.jaeger.reading.model.Book;
-
 import java.util.Date;
 
-/**
- * Created by Jaeger on 1/26/026.
- */
 public class Excerpt {
     private Book book;
     private Date addDate;

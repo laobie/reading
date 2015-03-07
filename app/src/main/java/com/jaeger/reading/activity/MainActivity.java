@@ -2,18 +2,14 @@ package com.jaeger.reading.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
@@ -21,47 +17,85 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.balysv.materialmenu.extras.toolbar.MaterialMenuIconCompat;
 import com.dexafree.materialList.view.MaterialListView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.jaeger.reading.R;
+import com.jaeger.reading.adapter.DrawerItemAdapter;
+import com.jaeger.reading.adapter.ReadingBookAdapter;
 import com.jaeger.reading.model.Book;
 import com.jaeger.reading.model.DrawerItem;
-import com.jaeger.reading.DrawerItemAdapter;
-import com.jaeger.reading.R;
-import com.jaeger.reading.ReadingBookAdapter;
+import com.jaeger.reading.tools.ActivityCollector;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity {
     private MaterialListView materialListView;
-    private MaterialMenuDrawable materialMenu;
-    private DrawerLayout mDrawerLayout;
-    private ListView mListViewDrawer;
+    private DrawerLayout drawerLayout;
+    private RelativeLayout drawerView;
+    private ListView drawerListView;
     private ActionBarDrawerToggle mDrawerToggle;
-    private Toolbar toolbar;
     private FloatingActionButton fabAdd;
 
+    private MaterialMenuIconCompat materialMenu;
     private RelativeLayout mainBookListLayout;
     private WebView browseBooksView;
-
-    private String titleStr;
     private ArrayList<Book> BookList;
+
+    private ListView settingAndExitView;
+    //MainActivity content model and title string
+    private String titleStr;
+    private static final String READING = "在读";
+    private static final String READING_BOOKS_LIST = "在读书单";
+    private static final String READ_BOOKS_LIST = "已读书单";
+    private static final String RECOMMEND_BOOKS_LIST = "推荐书单";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        materialMenu = new MaterialMenuIconCompat(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
         setContentView(R.layout.activity_main);
-        titleStr = "在读书单";
+        titleStr = READING_BOOKS_LIST;
         initView();
         BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
-        UpadateBook();
+        UpdateBook();
+    }
+
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        materialMenu.onSaveInstanceState(outState);
+    }
+    @Override
+    protected void onRestart() {
+        switch (titleStr) {
+            case READING_BOOKS_LIST:
+                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
+                break;
+            case READ_BOOKS_LIST:
+                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "1").find(Book.class);
+                break;
+            case RECOMMEND_BOOKS_LIST:
+                break;
+            default:
+                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
+                break;
+        }
+        UpdateBook();
+        super.onRestart();
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        materialMenu.syncState(savedInstanceState);
         mDrawerToggle.syncState();
     }
 
@@ -71,14 +105,18 @@ public class MainActivity extends ActionBarActivity {
             return true;
         }
         switch (item.getItemId()) {
+            case R.id.action_serach:
+                Intent intent = new Intent(this, SearchBookActivity.class);
+                startActivity(intent);
+                return true;
             default:
                 return false;
         }
     }
 
-    private void UpadateBook() {
+    private void UpdateBook() {
         ReadingBookAdapter adapter = new ReadingBookAdapter(MainActivity.this,
-                R.layout.reading_book_item, BookList);
+                R.layout.book_item, BookList);
         materialListView.setAdapter(adapter);
     }
 
@@ -91,68 +129,68 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-        case 1:
-            if (resultCode == RESULT_OK){
-               UpadateBook();
-            }
-            break;
-        case 2:
-            if (resultCode == RESULT_OK){
-                UpadateBook();
-            }
-        default:
-            break;
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    UpdateBook();
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    UpdateBook();
+                }
+            default:
+                break;
         }
     }
 
-    private void initDrawerItem(){
+    private void initDrawerItem() {
         ArrayList<DrawerItem> drawerItemArrayList = new ArrayList<>();
         int[] drawerItemIconIds = new int[]{
-                R.drawable.ic_wantbook_icon,
-                R.drawable.ic_readbook_icon,
-                R.drawable.ic_brower_icon
+                R.drawable.ic_drawer_readingbook,
+                R.drawable.ic_drawer_readbook,
+                R.drawable.ic_drawer_recommend
         };
         String[] drawerItemNames = new String[]{
-                "在读书单",
-                "已读书单",
-                "浏览推荐"
+                READING_BOOKS_LIST,
+                READ_BOOKS_LIST,
+                RECOMMEND_BOOKS_LIST
         };
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             DrawerItem drawerItem = new DrawerItem(drawerItemIconIds[i], drawerItemNames[i]);
             drawerItemArrayList.add(drawerItem);
         }
         DrawerItemAdapter adapter = new DrawerItemAdapter(this, R.layout.drawer_item, drawerItemArrayList);
-        mListViewDrawer.setAdapter(adapter);
-        mListViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        drawerListView.setAdapter(adapter);
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
+                switch (position) {
                     case 0:
                         mainBookListLayout.setVisibility(View.VISIBLE);
                         browseBooksView.setVisibility(View.GONE);
-                        mDrawerLayout.closeDrawer(mListViewDrawer);
-                        titleStr = "在读书单";
-                        BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
-                        UpadateBook();
+                        drawerLayout.closeDrawer(drawerView);
+                        titleStr = READING_BOOKS_LIST;
+                        BookList = (ArrayList<Book>)
+                                DataSupport.where("isFinish = ?", "0").find(Book.class);
+                        UpdateBook();
                         break;
                     case 1:
                         mainBookListLayout.setVisibility(View.VISIBLE);
                         browseBooksView.setVisibility(View.GONE);
-                        mDrawerLayout.closeDrawer(mListViewDrawer);
-                        titleStr = "已完成书单";
-                        BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "1").find(Book.class);
-                        UpadateBook();
+                        drawerLayout.closeDrawer(drawerView);
+                        titleStr = READ_BOOKS_LIST;
+                        BookList = (ArrayList<Book>)
+                                DataSupport.where("isFinish = ?", "1").find(Book.class);
+                        UpdateBook();
                         break;
                     case 2:
-                        mDrawerLayout.closeDrawer(mListViewDrawer);
-                        titleStr = "浏览推荐";
+                        drawerLayout.closeDrawer(drawerView);
+                        titleStr = RECOMMEND_BOOKS_LIST;
                         mainBookListLayout.setVisibility(View.GONE);
                         browseBooksView.setVisibility(View.VISIBLE);
                         browseBooksView.getSettings().setJavaScriptEnabled(true);
-//                        browseBooksView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-                        browseBooksView.loadUrl("http://book.douban.com/tag/%E9%A6%99%E6%B8%AF%E4%B8" +
-                                "%AD%E6%96%87%E5%A4%A7%E5%AD%A6%E6%8E%A8%E8%8D%90%E4%B9%A6%E5%8D%95");
+                        browseBooksView.loadUrl("http://book.douban.com/");
                         browseBooksView.setWebViewClient(new initWebView());
                         break;
                     default:
@@ -161,58 +199,61 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        ArrayList<DrawerItem> functionArrayList = new ArrayList<>();
+        DrawerItem drawerItem;
+        drawerItem = new DrawerItem(R.drawable.ic_drawer_settings, "设置");
+        functionArrayList.add(drawerItem);
+        drawerItem = new DrawerItem(R.drawable.ic_drawer_exit, "退出");
+        functionArrayList.add(drawerItem);
+        DrawerItemAdapter adapter1 = new DrawerItemAdapter(this, R.layout.drawer_item, functionArrayList);
+        settingAndExitView.setAdapter(adapter1);
+        settingAndExitView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        drawerLayout.closeDrawer(drawerView);
+                        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        ActivityCollector.finishAll();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-////        if (keyCode == KeyEvent.KEYCODE_BACK && browseBooksView.canGoBack()){
-////            //browseBooksView.goBack();
-////            return true;
-////        }
-//        return false;
-//    }
-
-    private void initView(){
+    private void initView() {
         materialListView = (MaterialListView) findViewById(R.id.material_listView);
         fabAdd = (FloatingActionButton) findViewById(R.id.fab_button);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mListViewDrawer = (ListView) findViewById(R.id.left_drawer);
-
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListView = (ListView) findViewById(R.id.left_drawer);
+        drawerView = (RelativeLayout) findViewById(R.id.drawer_view);
         mainBookListLayout = (RelativeLayout) findViewById(R.id.mainBookListLayout);
         browseBooksView = (WebView) findViewById(R.id.browseBooksView);
-
+        settingAndExitView = (ListView) findViewById(R.id.settingAndExitView);
         initDrawerItem();
 
-        toolbar.setTitle(titleStr);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.KITKAT){
-            toolbar.setElevation(5);
-        }
-
-        materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
-        toolbar.setNavigationIcon(materialMenu);
-        materialMenu.setNeverDrawTouch(true);
-
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open,R.string.drawer_close ){
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
-                materialMenu.animateIconState(MaterialMenuDrawable.IconState.BURGER, true);
+                materialMenu.animatePressedState(MaterialMenuDrawable.IconState.BURGER);
                 super.onDrawerClosed(view);
-                toolbar.setTitle(titleStr);
+                getSupportActionBar().setTitle(titleStr);
                 //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                materialMenu.animateIconState(MaterialMenuDrawable.IconState.ARROW, true);
+                materialMenu.animatePressedState(MaterialMenuDrawable.IconState.ARROW);
                 super.onDrawerOpened(drawerView);
-                toolbar.setTitle("在读");
-                // invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+                getSupportActionBar().setTitle(READING);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
         };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        drawerLayout.setDrawerListener(mDrawerToggle);
 
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,37 +273,30 @@ public class MainActivity extends ActionBarActivity {
         materialListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Book readingBook =  BookList.get(position);
+                Book readingBook = BookList.get(position);
                 Intent intent = new Intent(MainActivity.this, BookDetailActivity.class);
                 intent.putExtra("bookId", readingBook.getId());
                 startActivityForResult(intent, 2);
             }
         });
-    }
 
-    @Override
-    protected void onRestart() {
-        switch (titleStr){
-            case "在读书单":
-                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
-                break;
-            case "已完成书单":
-                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "1").find(Book.class);
-                break;
-            default:
-                BookList = (ArrayList<Book>) DataSupport.where("isFinish = ?", "0").find(Book.class);
-                break;
-        }
-        UpadateBook();
-        super.onRestart();
+
     }
 
     private class initWebView extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
             view.loadUrl(url);
             return true;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && browseBooksView.canGoBack()) {
+            browseBooksView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorPrimaryDark"
+    android:scrollbarStyle="outsideOverlay">
+    <!--设置焦点，避免直接弹出输入法 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/bookCoverView"
+                android:layout_width="120dp"
+                android:layout_height="180dp"
+                android:layout_margin="@dimen/small_padding"
+                android:background="@color/grey_white"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone" />
+
+            <com.gc.materialdesign.views.ButtonFlat
+                android:id="@+id/addBookCover"
+                android:layout_width="100dp"
+                android:layout_height="56dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="22dp"
+                android:background="@color/white"
+                android:text="@string/add_cover"
+                android:visibility="visible" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/addNameEditView"
+                style="@style/AddNewBookEditText"
+                android:hint="@string/input_book_name"
+                app:baseColor="@color/white"
+                app:errorColor="@color/dark_red"
+                app:floatingLabel="highlight"
+                app:floatingLabelText="@string/label_book_name"
+                app:primaryColor="@color/white" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/addAuthorEditView"
+                style="@style/AddNewBookEditText"
+                android:hint="@string/input_book_author"
+                app:baseColor="@color/white"
+                app:errorColor="@color/dark_red"
+                app:floatingLabel="highlight"
+                app:floatingLabelText="@string/label_book_author"
+                app:primaryColor="@color/white" />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/addPagesEditView"
+                style="@style/AddNewBookEditText"
+                android:hint="@string/input_book_pages"
+                android:inputType="number"
+                app:baseColor="@color/white"
+                app:errorColor="@color/dark_red"
+                app:floatingLabel="highlight"
+                app:floatingLabelText="@string/label_book_pages"
+                app:primaryColor="@color/white" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:title="编辑"
+        android:title="@string/edit"
         android:id="@+id/action_edit"
         android:icon="@drawable/ic_action_edit"
         app:showAsAction="always" />
     <item
-        android:title="删除"
+        android:title="@string/delete"
         android:id="@+id/action_delete"
         android:icon="@drawable/ic_action_delete"
         app:showAsAction="ifRoom" />
