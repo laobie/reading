@@ -2,13 +2,16 @@ package com.jaeger.reading.activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jaeger.reading.R;
@@ -23,7 +26,6 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class SearchBookActivity extends BaseActivity {
     private MaterialEditText keyWordEdtTxt;
     private ListView searchResultLv;
@@ -31,6 +33,7 @@ public class SearchBookActivity extends BaseActivity {
     private BookInfoAdapter adapter;
 
     private ArrayList<BookInfo> bookInfoList = null;
+    private ArrayList<BookInfo> newBooks = null;
 
     private int searchStart = 0;
     private int searchCount = 3;
@@ -39,17 +42,14 @@ public class SearchBookActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_book_layout);
-
-        SettingsConfig sc = new SettingsConfig(this);
-        searchCount = sc.getLoadNum();
+        //获取设置信息
+        SettingsConfig settings = new SettingsConfig(this);
+        searchCount = settings.getLoadNum();
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         bar.setCustomView(R.layout.search_edit_actionbar_layout);
         bar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_CUSTOM);
-        keyWordEdtTxt = (MaterialEditText) bar.getCustomView()
-                .findViewById(R.id.edtTxt_search_keyword);
+        keyWordEdtTxt = (MaterialEditText) bar.getCustomView().findViewById(R.id.edtTxt_search_keyword);
         searchResultLv = (ListView) findViewById(R.id.lv_search_result);
-
-
         searchResultLv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -65,6 +65,16 @@ public class SearchBookActivity extends BaseActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 //                int lastItem = firstVisibleItem + visibleItemCount - 1;
+            }
+        });
+
+        searchResultLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BookInfo bookInfo = bookInfoList.get(i);
+                Intent intent = new Intent(SearchBookActivity.this, BookInfoActivity.class);
+                intent.putExtra("book", bookInfo);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -92,7 +102,9 @@ public class SearchBookActivity extends BaseActivity {
                 }
                 if (!keyWordEdtTxt.getText().toString().trim().equals("")) {
                     searchStart = 0;
-                    if (bookInfoList != null) bookInfoList.clear();
+                    if (bookInfoList != null) {
+                        bookInfoList.clear();
+                    }
                     new Thread(runnable).start();
                 } else {
                     AlertDialog dialog = new AlertDialog.Builder(this)
@@ -114,7 +126,12 @@ public class SearchBookActivity extends BaseActivity {
             String keyword = keyWordEdtTxt.getText().toString();
             try {
                 SettingsConfig sc = new SettingsConfig(SearchBookActivity.this);
-                bookInfoList = JsonParse.GetBookListByKeyword(sc, keyword, searchStart, searchCount);
+                if (bookInfoList == null) {
+                    bookInfoList = JsonParse.GetBookListByKeyword(sc, keyword, searchStart, searchCount);
+                } else {
+                    newBooks = JsonParse.GetBookListByKeyword(sc, keyword, searchStart, searchCount);
+                    bookInfoList.addAll(newBooks);
+                }
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
@@ -123,14 +140,10 @@ public class SearchBookActivity extends BaseActivity {
                 @Override
                 public void run() {
                     if (searchStart == 0) {
-                        adapter = new BookInfoAdapter(
-                                SearchBookActivity.this,
-                                R.layout.book_info_item,
-                                bookInfoList
-                        );
+                        adapter = new BookInfoAdapter(SearchBookActivity.this, R.layout.book_info_item, bookInfoList);
                         searchResultLv.setAdapter(adapter);
                     } else {
-                        adapter.addItems(bookInfoList);
+                        adapter.addItems(newBooks);
                         adapter.notifyDataSetChanged();
                     }
                 }

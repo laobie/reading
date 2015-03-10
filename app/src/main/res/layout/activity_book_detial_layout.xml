@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <LinearLayout
         android:id="@+id/bookInfoView"
@@ -147,9 +148,9 @@
         fab:fab_icon="@drawable/ic_fab_bookmark"
         fab:fab_size="mini" />
 
-    <ListView
-        android:id="@+id/excerptListView"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/bookInfoView" />
+    <!--<ListView-->
+        <!--android:id="@+id/excerptListView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--android:layout_below="@+id/bookInfoView" />-->
 </RelativeLayout>

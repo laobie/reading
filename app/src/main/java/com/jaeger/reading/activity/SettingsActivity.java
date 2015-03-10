@@ -174,8 +174,8 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     private void setLoadCover(boolean flag) {
         SetViewAble(tvLoadCoverQuality, flag, true);
         SetViewAble(tvrLoadCoverQuality, flag, false);
-        SetViewAble(tvLoadNum, flag, true);
-        SetViewAble(tvrLoadNum, flag, false);
+//        SetViewAble(tvLoadNum, flag, true);
+//        SetViewAble(tvrLoadNum, flag, false);
     }
 
     private void setReceiveNoticeMode(boolean flag){

@@ -51,6 +51,22 @@
         <RelativeLayout style="@style/SettingRelativeLayout">
 
             <TextView
+                android:id="@+id/tv_load_num"
+                style="@style/SettingItemTextView"
+                android:text="@string/load_item_number" />
+
+            <TextView
+                android:id="@+id/tvr_load_num"
+                style="@style/SettingItemRightTextView"
+                android:clickable="false"
+                android:focusable="false" />
+        </RelativeLayout>
+
+        <View style="@style/SettingItemsDivider" />
+
+        <RelativeLayout style="@style/SettingRelativeLayout">
+
+            <TextView
                 android:id="@+id/tv_load_cover_mode"
                 style="@style/SettingItemTextView"
                 android:text="@string/load_cover" />
@@ -78,19 +94,6 @@
 
         <View style="@style/SettingItemsDivider" />
 
-        <RelativeLayout style="@style/SettingRelativeLayout">
-
-            <TextView
-                android:id="@+id/tv_load_num"
-                style="@style/SettingItemTextView"
-                android:text="@string/load_item_number" />
-
-            <TextView
-                android:id="@+id/tvr_load_num"
-                style="@style/SettingItemRightTextView"
-                android:clickable="false"
-                android:focusable="false" />
-        </RelativeLayout>
 
     </LinearLayout>
 

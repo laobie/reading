@@ -6,30 +6,33 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 
 public class BookInfo implements Serializable{
-    private String title;
-    private String author;
-    private String id;
-    private int pages;
-    private String coverImgUrl;
-    private Bitmap cover;
+    private String title;       //标题
+    private String author;      //作者
+    private String id;          //豆瓣图书库中id
+    private int pages;          //页数
+    private String coverImgUrl; //封面图片地址
+    private Bitmap cover;       //封面图片
+    private String summary;     //简介
 
-
-    public BookInfo(String id, String title, String author, int pages, String coverImgUrl, Bitmap cover) {
+    public BookInfo(String id, String title, String author, int pages, String coverImgUrl, Bitmap cover, String summary) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.coverImgUrl = coverImgUrl;
         this.cover = cover;
+        this.summary = summary;
     }
 
-    public BookInfo(String id, String title, String author, int pages, String coverImgUrl) {
+    public BookInfo(String id, String title, String author, int pages, String coverImgUrl, String summary) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.pages = pages;
         this.coverImgUrl = coverImgUrl;
+        this.summary = summary;
     }
+
     public int getPages() {
         return pages;
     }
@@ -68,6 +71,14 @@ public class BookInfo implements Serializable{
 
     public Bitmap getCover() {
         return cover;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 
     public void setCover(Bitmap cover) {

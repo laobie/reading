@@ -21,23 +21,31 @@ import java.util.ArrayList;
 
 public class JsonParse {
 
-    public static ArrayList<BookInfo> GetBookInfo(SettingsConfig sc,String jsonString) throws JSONException, IOException {
+    public static ArrayList<BookInfo> GetBookInfo(SettingsConfig sc, String jsonString)
+            throws JSONException, IOException {
         ArrayList<BookInfo> booksList = new ArrayList<>();
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONArray jsonArray = jsonObject.getJSONArray("books");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject object = jsonArray.getJSONObject(i);
+            //get title
             String title = object.getString("title");
+            //get id
             String id = object.getString("id");
+            //get author
             JSONArray authors = object.getJSONArray("author");
             String author = (authors.get(0)).toString();
+            //get summary
+            String summary = object.getString("summary");
+            //get pages
             int pages = 0;
             String pagesStr = object.getString("pages");
             if (!pagesStr.equals("")) {
+                // 提取页码字符串中的数字，正则表达式写法
                 pagesStr = pagesStr.replaceAll("[^\\d]", "");
                 pages = Integer.parseInt(pagesStr);
             }
-            //get book cover image resource
+            //get cover image resource
             JSONObject images = object.getJSONObject("images");
             String imageUrl;
             switch (sc.getLoadCoverQuality()) {
@@ -52,12 +60,13 @@ public class JsonParse {
                     imageUrl = images.getString("large");
                     break;
             }
+
             BookInfo book;
             if (sc.isLoadCoverMode()) {
                 Bitmap cover = GetImageFormUrlString(imageUrl);
-                book = new BookInfo(id, title, author, pages, imageUrl, cover);
+                book = new BookInfo(id, title, author, pages, imageUrl, cover, summary);
             } else {
-                book = new BookInfo(id, title, author, pages, imageUrl);
+                book = new BookInfo(id, title, author, pages, imageUrl, summary);
             }
             booksList.add(book);
         }
@@ -65,6 +74,7 @@ public class JsonParse {
     }
 
     public static URL getSearchUrl(String keyword, int start, int count) throws MalformedURLException {
+        // 豆瓣Api调用地址
         final String SEARCH_URL = "http://api.douban.com/v2/book/search?q=";
         keyword = keyword.replace(" ", "%20");
         String searchUrl = SEARCH_URL + keyword + "&start=" + start + "&count=" + count;
@@ -114,7 +124,7 @@ public class JsonParse {
         */
     }
 
-    public static ArrayList<BookInfo> GetBookListByKeyword(SettingsConfig sc,String keyword, int start, int count)
+    public static ArrayList<BookInfo> GetBookListByKeyword(SettingsConfig sc, String keyword, int start, int count)
             throws IOException, JSONException {
         URL url = null;
         HttpURLConnection conn = null;

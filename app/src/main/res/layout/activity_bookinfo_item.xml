@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/bookInfoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@id/bookCoverView"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:contentDescription=""
+            android:src="@drawable/default_cover" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/tv_bookInfo_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="22sp"
+                tools:text="小王子" />
+
+            <TextView
+                android:id="@+id/tv_bookInfo_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bookInfo_title"
+                android:gravity="center_vertical"
+                android:paddingBottom="4dp"
+                android:textColor="@color/light_white"
+                android:textSize="14sp"
+                tools:text="圣埃克·苏佩里" />
+
+            <TextView
+                android:id="@+id/tv_bookInfo_pages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_bookInfo_author"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:textColor="@color/light_white"
+                android:textSize="14sp"
+                tools:text="页数" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:text="书籍简介"
+        android:paddingLeft="@dimen/big_padding"
+        android:paddingRight="@dimen/big_padding"
+        android:paddingTop="@dimen/small_padding" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_bookInfo_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/bookInfoView"
+            android:paddingLeft="@dimen/big_padding"
+            android:paddingRight="@dimen/big_padding"
+            android:paddingTop="@dimen/small_padding"
+            android:paddingBottom="@dimen/small_padding"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="小王子小王子" />
+
+    </ScrollView>
+
+</LinearLayout>
