@@ -41,7 +41,7 @@ public class AddNewBookActivity extends BaseActivity implements View.OnClickList
     private File tempCoverFile = null;
     private File coverFile = null;
 
-    private boolean addMode = true;            //false为编辑模式，true为新增模式
+    private boolean addMode = true;            //false为编辑模式，true为新增模式，两种模式
     private int bookId;
     private boolean saveResult = false;
 
